@@ -2,14 +2,20 @@
   "users": {
     "homer": {
       "name": "Homer Simpson",
-      "picture": "/img/homer.png"
+      "picture": "/img/homer.png",
+      "pollvotes": {
+        "-K4mB6io8er7LNHtRRLZ" : "-K4mB6io8er7LNHtRRLZ",
+        "-K4mB9gnUjzxp2mxShwk" : "-K4mB6io8er7LNHtRRLZ"
+      }
     },
     "bart": {
       "name": "Bart Simpson",
-      "picture": "/img/bart.png"
+      "picture": "/img/bart.png",
+      "pollvotes": {}
      },
      "lisa": {
-      "name": "Lisa Simpson"
+      "name": "Lisa Simpson",
+      "pollvotes": {}
      }
   },
   "myPolls" : {

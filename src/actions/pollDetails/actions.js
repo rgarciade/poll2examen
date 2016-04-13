@@ -66,6 +66,8 @@ export function voteEntry(idPoll, idEntry, auth) {
     });
       firebase.child(`polls/${idPoll}/userslist/${auth.id}`)
       .set({id:auth.id, vote: idEntry});
+      firebase.child(`users/${auth.id}/pollvotes/${idPoll}`)
+      .set(idPoll);
   };
 }
 export function changeVoteEntry(Poll, idEntry, auth) {
@@ -94,5 +96,7 @@ export function changeVoteEntry(Poll, idEntry, auth) {
     });
       firebase.child(`polls/${Poll.id}/userslist/${auth.id}`)
       .set({id:auth.id, vote: idEntry});
+      firebase.child(`users/${auth.id}/pollvotes/${Poll.id}`)
+      .set(Poll.id);
   };
 }
