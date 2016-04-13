@@ -68,10 +68,21 @@ export function voteEntry(idPoll, idEntry, auth) {
       .set({id:auth.id, vote: idEntry});
   };
 }
-export function changeVoteEntry(idPoll, idEntry, auth) {
+export function changeVoteEntry(Poll, idEntry, auth) {
   return (dispatch, getState) => {
+    const oldvote = Poll.userslist[auth.id].vote;
     const { firebase } = getState();
-    firebase.child(`polls/${idPoll}/entries/${idEntry}/votes`)
+    firebase.child(`polls/${Poll.id}/entries/${oldvote}/votes`)
+      .transaction(votes => votes - 1, error => {
+        if (error) {
+          console.error('ERROR @ updatePoll :', error); // eslint-disable-line no-console
+          dispatch({
+            type: UPDATE_POLL_ERROR,
+            payload: error,
+        });
+      }
+    });
+    firebase.child(`polls/${Poll.id}/entries/${idEntry}/votes`)
       .transaction(votes => votes + 1, error => {
         if (error) {
           console.error('ERROR @ updatePoll :', error); // eslint-disable-line no-console
@@ -81,7 +92,7 @@ export function changeVoteEntry(idPoll, idEntry, auth) {
         });
       }
     });
-      firebase.child(`polls/${idPoll}/userslist`)
-      .push({id:auth.id, vote: idEntry});
+      firebase.child(`polls/${Poll.id}/userslist/${auth.id}`)
+      .set({id:auth.id, vote: idEntry});
   };
 }

@@ -29,9 +29,11 @@ export default class PollVote extends Component {
 
   handleVoteClick(Poll, idEntry, auth) {
     const name = auth.id;
-    const caca = Object.keys(Poll.userslist);
-debugger;
-    this.props.voteEntry(Poll.id, idEntry, auth);
+    (Poll.userslist[name]) ? this.props.changeVoteEntry(Poll, idEntry, auth) : this.props.voteEntry(Poll.id, idEntry, auth);
+
+
+    //this.props.changeVoteEntry(Poll, idEntry, auth);
+    //this.props.changeVoteEntry(Poll.id, idEntry, auth);
   }
 
   totalVotes(entries) {

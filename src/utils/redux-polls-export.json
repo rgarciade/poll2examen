@@ -14,8 +14,8 @@
   },
   "myPolls" : {
     "homer" : {
-      "-K4mB6io8er7LNHtRRLZ" : { "state": "locked" },
-      "-K4mB9gnUjzxp2mxShwk" : { "state": "locked" }
+      "-K4mB6io8er7LNHtRRLZ" : { "state": "unlocked" },
+      "-K4mB9gnUjzxp2mxShwk" : { "state": "unlocked" }
     }
   },
   "polls" : {
