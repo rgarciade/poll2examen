@@ -61,8 +61,8 @@ export default class PollList extends Component {
 
   render() {
 
-    const { polls, removePoll, setNextState } = this.props;
-
+    const { polls, removePoll, setNextState, auth } = this.props;
+    console.log(auth);
     const contents = this.state.loading ?
       <Spinner /> :
       (

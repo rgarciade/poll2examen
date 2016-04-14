@@ -5,7 +5,7 @@ import * as pollSearchActions from '../actions/pollSearch';
 
 function mapStateToProps(state) {
   return {
-    polls: state.pollSearch
+    polls: state.pollSearch, auth: state.auth
   };
 }
 

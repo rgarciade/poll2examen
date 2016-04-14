@@ -25,11 +25,21 @@ export default class SelectPoll extends Component {
   }
 
   render() {
-    const { polls } = this.props;
+    const { polls, auth } = this.props;
+    const pollVotes = (auth && auth.settings && auth.settings.pollvotes) ?  auth.settings.pollvotes : null;
     const noResults = polls.length === 0 ? 'No results' : null;
     return (
       <div className="row">
         <div className="col-md-6">
+                        {(pollVotes !== null) ?
+                  Object.keys(pollVotes).map( (id) =>
+                    <li className="list-group-item" >
+                    <Link to={`/vote/${id}`}>{ pollVotes[id] }</Link>
+                     <br/>
+                    </li>
+                  ) : null
+                }
+
           <div className="input-group">
             <input type="text" className="form-control" placeholder="Pull Title" ref="title" onChange={e => this.handleOnChangeTitle(e)}/>
             <span className="input-group-btn">

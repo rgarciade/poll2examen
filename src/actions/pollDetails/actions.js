@@ -51,10 +51,10 @@ export function removeEntry(idPoll, idEntry) {
   };
 }
 
-export function voteEntry(idPoll, idEntry, auth) {
+export function voteEntry(poll, idEntry, auth) {
   return (dispatch, getState) => {
     const { firebase } = getState();
-    firebase.child(`polls/${idPoll}/entries/${idEntry}/votes`)
+    firebase.child(`polls/${poll.id}/entries/${idEntry}/votes`)
       .transaction(votes => votes + 1, error => {
         if (error) {
           console.error('ERROR @ updatePoll :', error); // eslint-disable-line no-console
@@ -64,17 +64,17 @@ export function voteEntry(idPoll, idEntry, auth) {
         });
       }
     });
-      firebase.child(`polls/${idPoll}/userslist/${auth.id}`)
+      firebase.child(`polls/${poll.id}/userslist/${auth.id}`)
       .set({id:auth.id, vote: idEntry});
-      firebase.child(`users/${auth.id}/pollvotes/${idPoll}`)
-      .set(idPoll);
+      firebase.child(`users/${auth.id}/pollvotes/${poll.id}`)
+      .set(poll.title);
   };
 }
-export function changeVoteEntry(Poll, idEntry, auth) {
+export function changeVoteEntry(poll, idEntry, auth) {
   return (dispatch, getState) => {
-    const oldvote = Poll.userslist[auth.id].vote;
+    const oldvote = poll.userslist[auth.id].vote;
     const { firebase } = getState();
-    firebase.child(`polls/${Poll.id}/entries/${oldvote}/votes`)
+    firebase.child(`polls/${poll.id}/entries/${oldvote}/votes`)
       .transaction(votes => votes - 1, error => {
         if (error) {
           console.error('ERROR @ updatePoll :', error); // eslint-disable-line no-console
@@ -84,7 +84,7 @@ export function changeVoteEntry(Poll, idEntry, auth) {
         });
       }
     });
-    firebase.child(`polls/${Poll.id}/entries/${idEntry}/votes`)
+    firebase.child(`polls/${poll.id}/entries/${idEntry}/votes`)
       .transaction(votes => votes + 1, error => {
         if (error) {
           console.error('ERROR @ updatePoll :', error); // eslint-disable-line no-console
@@ -94,9 +94,10 @@ export function changeVoteEntry(Poll, idEntry, auth) {
         });
       }
     });
-      firebase.child(`polls/${Poll.id}/userslist/${auth.id}`)
+      firebase.child(`polls/${poll.id}/userslist/${auth.id}`)
       .set({id:auth.id, vote: idEntry});
-      firebase.child(`users/${auth.id}/pollvotes/${Poll.id}`)
-      .set(Poll.id);
+      debugger;
+      firebase.child(`users/${auth.id}/${poll.id}`)
+      .set(poll.title);
   };
 }
